@@ -30,8 +30,8 @@ public:
 	//UPROPERTY(EditAnywhere, Category = Location)
 	//TArray<APlayerStart*> playerStarts;
 private:
-	class AShipPlayerController* controller0;
-	AShipPlayerController* controller1;
+	//class AShipPlayerController* controller0;
+	class AShipPlayerController* controller1;
 	AShipPlayerController* controller2;
 	AShipPlayerController* controller3;
 	AShipPlayerController* controller4;

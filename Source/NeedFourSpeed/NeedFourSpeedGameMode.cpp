@@ -7,12 +7,8 @@
 
 ANeedFourSpeedGameMode::ANeedFourSpeedGameMode()
 {
-	//DefaultPawnClass = AShipCharacter::StaticClass();
-
-	//PlayerControllerClass = AShipPlayerController::StaticClass();
-	//playerStarts = TArray<APlayerStart*>();
+	PlayerControllerClass = AShipPlayerController::StaticClass();
 	this->bDelayedStart = true;
-
 }
 
 void ANeedFourSpeedGameMode::BeginPlay()
@@ -22,19 +18,13 @@ void ANeedFourSpeedGameMode::BeginPlay()
 	controller1 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 1, true));
 	controller2 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 2, true));
 	controller3 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 3, true));
-	//controller4 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 4, true));
+	controller4 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 4, true));
 
-	//Cast<AShipCharacter>(controller1->GetPawn())->SetPlayerIndex(1);
-	//Cast<AShipCharacter>(controller2->GetPawn())->SetPlayerIndex(2);
-	//Cast<AShipCharacter>(controller3->GetPawn())->SetPlayerIndex(3);
-	//controller4->SetPlayerIndex(4);
-
-	//
 	players.Add(GetWorld()->GetFirstPlayerController());
 	players.Add(controller1);
 	players.Add(controller2);
 	players.Add(controller3);
-	//players.Add(controller4);
+	players.Add(controller4);
 
 	FActorSpawnParameters spawnParams;
 	spawnParams.Owner = this;
@@ -51,11 +41,23 @@ void ANeedFourSpeedGameMode::AddPlayerIndexToSpawnQueue(int32& index)
 
 void ANeedFourSpeedGameMode::HandleMatchHasStarted() {
 	Super::HandleMatchHasStarted();
-	//Cast<AShipPlayerController>(GetWorld()->GetFirstLocalPlayerFromController())->Repossess();
-	//controller1->Repossess();
-	//controller2->Repossess();
-	//Cast<AShipCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn())->GetMesh()->Deactivate();
-	//Cast<AShipCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn())->InputComponent->Deactivate();
+	TArray<AActor*> allActor;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AShipCharacter::StaticClass(), allActor);
+	int32 index = 0;
+	float maxHeight = 0.0f;
+	for (int i = 0; i < allActor.Num(); i++) {
+		AShipCharacter* pawn = Cast<AShipCharacter>(allActor[i]);
+		if (!Cast<APlayerController>(pawn->GetController())){
+			index = i;
+			maxHeight = pawn->GetActorLocation().Z;
+		}
+	}
+	AActor* pawn = allActor[index];
+	if (pawn) {
+		FVector defaultPlayerLoc = pawn->GetRootComponent()->GetComponentLocation();
+		defaultPlayerLoc.Z -= 9999999999999999999999999999999999.0f;
+		pawn->SetActorLocation(defaultPlayerLoc, false);
+	}
 	mCustomCamera->Init(players);
 }
 

@@ -3,6 +3,12 @@
 #include "NeedFourSpeed.h"
 #include "LocalMPViewportClient.h"
 
+
+ULocalMPViewportClient::ULocalMPViewportClient() {
+	//Super::UGameViewportClient();
+	MaxSplitscreenPlayers = 5;
+}
+
 bool ULocalMPViewportClient::InputKey(FViewport* Viewport, int32 ControllerId, FKey Key, EInputEvent EventType, float AmountDepressed, bool bGamepad)
 {
 	if (bGamepad)

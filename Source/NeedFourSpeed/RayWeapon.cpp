@@ -17,22 +17,6 @@ ARayWeapon::ARayWeapon()
 	mNumShots = mWeaponConfig.mMaxAmmo;
 }
 
-void ARayWeapon::Fire(FVector AimDirection)
-{
-	if (mNumShots > 0 || mWeaponConfig.mUnlimitedAmmo)
-	{
-		Super::Fire(AimDirection);
-		//Get the weapon config stuff//GetSocketRotation("MF").Vector();
-		const int32 numBullets = mWeaponConfig.mNumBulletsPerShot;
-		const float weaponSpread = mWeaponConfig.mWeaponSpread;
-		const float weaponRange = mWeaponConfig.mWeaponRange;
-		const float timeBetweenShots = mWeaponConfig.mTimeBetweenShots;
-
-		Fire_Projectile(mBulletClass, mAimDir);
-		//Fire_Trace(aimDir);
-	}
-}
-
 void ARayWeapon::Fire_Projectile(TSubclassOf<class AActor> RayClass, const FVector& FireDirection)
 {
 	const FRotator FireRotation = FireDirection.Rotation();

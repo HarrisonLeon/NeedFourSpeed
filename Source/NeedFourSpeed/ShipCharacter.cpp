@@ -212,17 +212,10 @@ void AShipCharacter::MoveRight(float Value)
 
 void AShipCharacter::Aim(float ForwardValue, float RightValue)
 {
-	if (FMath::IsNearlyZero(ForwardValue) && FMath::IsNearlyZero(RightValue))
-	{
-		StopFire();
-	}
-	else
+	if (!FMath::IsNearlyZero(ForwardValue) || !FMath::IsNearlyZero(RightValue))
 	{
 		FVector AimDirection = FVector(-ForwardValue, RightValue, 0.0f);
 		Fire(AimDirection);
-		//FRotator AimRotation = FRotator(0.0f, AimDirection.Rotation().Yaw, 0.0f);
-		//currentRotation = AimRotation;
-		//SetActorRotation(currentRotation);
 	}
 }
 

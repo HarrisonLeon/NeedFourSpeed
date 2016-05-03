@@ -24,7 +24,6 @@ public:
 	void AimRight(float Value);
 	void Dash();
 	void Aim();
-	void Repossess();
 
 	void Fire();
 	void StopFire();

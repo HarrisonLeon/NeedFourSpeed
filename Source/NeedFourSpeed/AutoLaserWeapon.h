@@ -17,8 +17,6 @@ class NEEDFOURSPEED_API AAutoLaserWeapon : public AWeapon
 public:
 	AAutoLaserWeapon();
 
-	void Fire(FVector AimDirection) override;
-
 private:
 	
 	

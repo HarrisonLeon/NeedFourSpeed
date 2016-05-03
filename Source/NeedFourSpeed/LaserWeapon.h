@@ -16,6 +16,4 @@ class NEEDFOURSPEED_API ALaserWeapon : public AWeapon
 public:
 
 	ALaserWeapon();
-
-	void Fire(FVector AimDirection) override;
 };

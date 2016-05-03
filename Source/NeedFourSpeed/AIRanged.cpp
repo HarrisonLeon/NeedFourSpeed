@@ -32,7 +32,7 @@ void AAIRanged::StartAttack()
 	{
 		FVector AimDirection = GetActorForwardVector();
 		AimDirection.Normalize();
-		mCurrentWeapon->Fire(AimDirection);
+		//mCurrentWeapon->Fire(AimDirection);
 	}
 }
 

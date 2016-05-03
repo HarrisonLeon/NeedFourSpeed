@@ -37,20 +37,44 @@ void AWeapon::Tick(float DeltaTime)
 /*Fire weapon based on the type*/
 void AWeapon::Fire(FVector AimDirection)
 {
-	//Play fire sound
-	mCanFire = true;
-	mNumShots--;
-	mAimDir = AimDirection;
-	PlayWeaponSound(mFireSound);
+	FString boolString = mCanFire ? "I CAN SHOOT" : "NO WAY";
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, boolString);
 
-	//Subtract ammo from hud if it is a player
-	//Draw ammo to HUD
-	if (Instigator->IsA(AShipCharacter::StaticClass()))
+	if (mCanFire)
 	{
-		AShipCharacter* player = Cast<AShipCharacter>(Instigator);
-		if (player)
+		if (mNumShots > 0 || mWeaponConfig.mUnlimitedAmmo)
 		{
-			player->SetPlayerAmmo(GetCurrentAmmo());
+			mNumShots--;
+			mAimDir = AimDirection;
+			
+
+			//Subtract ammo from hud if it is a player
+			//Draw ammo to HUD
+			if (Instigator->IsA(AShipCharacter::StaticClass()))
+			{
+				AShipCharacter* player = Cast<AShipCharacter>(Instigator);
+				if (player)
+				{
+					player->SetPlayerAmmo(GetCurrentAmmo());
+				}
+			}
+
+			//Set timer for next shot for automatic gun
+			mCanFire = false;
+
+			Fire_Projectile(mBulletClass, AimDirection);
+
+			FTimerHandle fireHandle;
+			UWorld* World = GetWorld();
+			if (World)
+			{
+				//Set timer
+				World->GetTimerManager().SetTimer(fireHandle, this, &AWeapon::CanFireAgain, mWeaponConfig.mTimeBetweenShots);
+			}
+
+			PlayWeaponSound(mFireSound);
+
+			mCanFire = false;
 		}
 	}
 }
@@ -60,13 +84,10 @@ void AWeapon::StopFire()
 	mCanFire = false;
 }
 
-//FVector AWeapon::GetInstigatorFireForward()
-//{
-//	FVector fireForward;
-//	fireForward = FVector::CrossProduct(this->GetOwner()->GetActorRightVector(), FVector::UpVector);
-//	fireForward.Normalize();
-//	return fireForward;
-//}
+void AWeapon::CanFireAgain()
+{
+	mCanFire = true;
+}
 
 /*Fire a projectile*/
 void AWeapon::Fire_Projectile(TSubclassOf<class AActor> BulletClass, const FVector& FireDirection)

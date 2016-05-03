@@ -14,20 +14,3 @@ ALaserWeapon::ALaserWeapon()
 	mWeaponConfig.mUnlimitedAmmo = false;
 	mNumShots = mWeaponConfig.mMaxAmmo;
 }
-
-void ALaserWeapon::Fire(FVector AimDirection)
-{
-	if (mNumShots > 0 || mWeaponConfig.mUnlimitedAmmo)
-	{
-		Super::Fire(AimDirection);
-		//Get the weapon config stuff
-		const int32 numBullets = mWeaponConfig.mNumBulletsPerShot;
-		const float weaponSpread = mWeaponConfig.mWeaponSpread;
-		const float weaponRange = mWeaponConfig.mWeaponRange;
-		const float timeBetweenShots = mWeaponConfig.mTimeBetweenShots;
-
-		Fire_Projectile(mBulletClass, mAimDir);
-	}
-}
-
-

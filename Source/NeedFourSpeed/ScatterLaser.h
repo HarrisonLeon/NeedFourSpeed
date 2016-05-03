@@ -17,5 +17,7 @@ public:
 
 	AScatterLaser();
 
-	virtual void Fire(FVector AimDirection) override;
+	// virtual void Fire(FVector AimDirection) override;
+
+	virtual void Fire_Projectile(TSubclassOf<class AActor> BulletClass, const FVector& FireDirection) override;
 };

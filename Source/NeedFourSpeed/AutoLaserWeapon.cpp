@@ -15,36 +15,3 @@ AAutoLaserWeapon::AAutoLaserWeapon()
 	mWeaponConfig.mUnlimitedAmmo = false;
 	mNumShots = mWeaponConfig.mMaxAmmo;
 }
-
-void AAutoLaserWeapon::Fire(FVector AimDirection)
-{
-	if (mCanFire)
-	{
-		if (mNumShots > 0 || mWeaponConfig.mUnlimitedAmmo)
-		{
-			Super::Fire(AimDirection);
-			//Get the weapon config stuff
-			const FVector aimDir = AimDirection;
-			const int32 numBullets = mWeaponConfig.mNumBulletsPerShot;
-			const float weaponSpread = mWeaponConfig.mWeaponSpread;
-			const float weaponRange = mWeaponConfig.mWeaponRange;
-			const float timeBetweenShots = mWeaponConfig.mTimeBetweenShots;
-
-			//Set timer for next shot for automatic gun
-			FTimerHandle fireHandle;
-			UWorld* world = GetWorld();
-			if (world)
-			{
-				//Set timer
-				//world->GetTimerManager().SetTimer(fireHandle, this, &AAutoLaserWeapon::Fire, timeBetweenShots);
-			}
-			Fire_Projectile(mBulletClass, mAimDir);
-		}
-	}
-	else
-	{
-		mCanFire = true;
-	}
-}
-
-

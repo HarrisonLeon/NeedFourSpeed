@@ -74,10 +74,13 @@ public:
 	int32 GetCurrentAmmo() { return mNumShots; }
 
 	UFUNCTION()
-		virtual void Fire(FVector AimDirection);
+		void Fire(FVector AimDirection);
 
 	UFUNCTION()
 		virtual void StopFire();
+
+	UFUNCTION()
+		virtual void CanFireAgain();
 
 	UFUNCTION()
 		void Fire_Trace(const FVector& shootDir);
@@ -87,8 +90,6 @@ public:
 
 	UFUNCTION()
 		UAudioComponent* PlayWeaponSound(USoundCue* sound);
-
-	FVector GetInstigatorFireForward();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
 	class UBoxComponent* mCollisionComp;

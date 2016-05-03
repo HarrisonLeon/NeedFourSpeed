@@ -30,7 +30,9 @@ void AAIRanged::StartAttack()
 	GetWorldTimerManager().SetTimer(mAttackTimerHandle, this, &AAIRanged::StartAttack, 1.0f, true);
 	if (mCurrentWeapon)
 	{
-		mCurrentWeapon->Fire();
+		FVector AimDirection = GetActorForwardVector();
+		AimDirection.Normalize();
+		mCurrentWeapon->Fire(AimDirection);
 	}
 }
 

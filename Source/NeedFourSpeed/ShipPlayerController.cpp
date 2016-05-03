@@ -34,11 +34,12 @@ void AShipPlayerController::SetupInputComponent()
 		InputComponent->BindAxis("MoveRight", this, &AShipPlayerController::MoveRight);
 		InputComponent->BindAxis("AimForward");
 		InputComponent->BindAxis("AimRight");
+		InputComponent->BindAction("Dash", IE_Pressed, this, &AShipPlayerController::Dash);
 		//InputComponent->BindAxis("FireForward", this, &AShipPlayerController::Fire);
 		//InputComponent->BindAxis("FireRight", this, &AShipPlayerController::Fire);
-		InputComponent->BindAction("Fire", IE_Pressed, this, &AShipPlayerController::Fire);
-		InputComponent->BindAction("Fire", IE_Released, this, &AShipPlayerController::StopFire);
-		InputComponent->BindAction("Dash", IE_Pressed, this, &AShipPlayerController::Dash);
+		//InputComponent->BindAction("Fire", IE_Pressed, this, &AShipPlayerController::Fire);
+		//InputComponent->BindAction("Fire", IE_Released, this, &AShipPlayerController::StopFire);
+		
 	}
 }
 
@@ -78,38 +79,16 @@ void AShipPlayerController::Aim()
 		Cast<AShipCharacter>(GetPawn())->Aim(AimForwardValue, AimRightValue);
 	}
 }
-
-void AShipPlayerController::AimForward(float Value)
-{
-	/*if (ControlledShip && Value != 0.0f)
-	{
-	ControlledShip->AimForward(Value);
-	}*/
-	if (Cast<AShipCharacter>(GetPawn()) && Value != 0.0f) {
-		Cast<AShipCharacter>(GetPawn())->AimForward(Value);
-	}
-}
-
-void AShipPlayerController::AimRight(float Value)
-{
-	/*if (ControlledShip && Value != 0.0f)
-	{
-	ControlledShip->AimRight(Value);
-	}*/
-	if (Cast<AShipCharacter>(GetPawn()) && Value != 0.0f) {
-		Cast<AShipCharacter>(GetPawn())->AimRight(Value);
-	}
-}
-
-void AShipPlayerController::Fire()
-{
-	/*if (ControlledShip) {
-	ControlledShip->Fire();
-	}*/
-	if (Cast<AShipCharacter>(GetPawn())) {
-		Cast<AShipCharacter>(GetPawn())->Fire();
-	}
-}
+//
+//void AShipPlayerController::Fire()
+//{
+//	/*if (ControlledShip) {
+//	ControlledShip->Fire();
+//	}*/
+//	if (Cast<AShipCharacter>(GetPawn())) {
+//		Cast<AShipCharacter>(GetPawn())->Fire();
+//	}
+//}
 
 void AShipPlayerController::StopFire()
 {

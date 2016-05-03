@@ -16,15 +16,15 @@ AAutoLaserWeapon::AAutoLaserWeapon()
 	mNumShots = mWeaponConfig.mMaxAmmo;
 }
 
-void AAutoLaserWeapon::Fire()
+void AAutoLaserWeapon::Fire(FVector AimDirection)
 {
 	if (mCanFire)
 	{
-		if (mNumShots > 0||mWeaponConfig.mUnlimitedAmmo)
+		if (mNumShots > 0 || mWeaponConfig.mUnlimitedAmmo)
 		{
-			Super::Fire();
+			Super::Fire(AimDirection);
 			//Get the weapon config stuff
-			const FVector aimDir = this->GetActorRotation().Vector();//GetSocketRotation("MF").Vector();
+			const FVector aimDir = AimDirection;
 			const int32 numBullets = mWeaponConfig.mNumBulletsPerShot;
 			const float weaponSpread = mWeaponConfig.mWeaponSpread;
 			const float weaponRange = mWeaponConfig.mWeaponRange;
@@ -36,7 +36,7 @@ void AAutoLaserWeapon::Fire()
 			if (world)
 			{
 				//Set timer
-				world->GetTimerManager().SetTimer(fireHandle, this, &AAutoLaserWeapon::Fire, timeBetweenShots);
+				//world->GetTimerManager().SetTimer(fireHandle, this, &AAutoLaserWeapon::Fire, timeBetweenShots);
 			}
 			Fire_Projectile(mBulletClass, mAimDir);
 		}

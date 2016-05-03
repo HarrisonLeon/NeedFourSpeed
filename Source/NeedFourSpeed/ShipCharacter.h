@@ -45,13 +45,7 @@ public:
 		void Aim(float ForwardValue, float RightValue);
 
 	UFUNCTION()
-		void AimForward(float Value);
-
-	UFUNCTION()
-		void AimRight(float Value);
-
-	UFUNCTION()
-		void Fire();
+		void Fire(FVector AimDirection);
 
 	UFUNCTION()
 		void StopFire();

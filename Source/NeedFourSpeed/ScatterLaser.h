@@ -17,5 +17,5 @@ public:
 
 	AScatterLaser();
 
-	virtual void Fire() override;
+	virtual void Fire(FVector AimDirection) override;
 };

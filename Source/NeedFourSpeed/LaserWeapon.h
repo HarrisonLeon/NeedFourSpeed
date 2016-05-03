@@ -17,5 +17,5 @@ public:
 
 	ALaserWeapon();
 
-	void Fire() override;
+	void Fire(FVector AimDirection) override;
 };

@@ -74,7 +74,7 @@ public:
 	int32 GetCurrentAmmo() { return mNumShots; }
 
 	UFUNCTION()
-		virtual void Fire();
+		virtual void Fire(FVector AimDirection);
 
 	UFUNCTION()
 		virtual void StopFire();

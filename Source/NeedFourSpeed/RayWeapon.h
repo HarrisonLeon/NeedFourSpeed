@@ -18,7 +18,7 @@ public:
 
 	ARayWeapon();
 
-	void Fire() override;
+	void Fire(FVector AimDirection) override;
 
 	void Fire_Projectile(TSubclassOf<class AActor> ProjectileClass, const FVector& FireDirection);
 };

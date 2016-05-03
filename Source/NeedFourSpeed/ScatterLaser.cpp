@@ -16,11 +16,11 @@ AScatterLaser::AScatterLaser()
 	mNumShots = mWeaponConfig.mMaxAmmo;
 }
 
-void AScatterLaser::Fire()
+void AScatterLaser::Fire(FVector AimDirection)
 {
 	if (mNumShots > 0 || mWeaponConfig.mUnlimitedAmmo)
 	{
-		Super::Fire();
+		Super::Fire(AimDirection);
 		//Get the weapon config stuff//GetSocketRotation("MF").Vector();
 		const int32 numBullets = mWeaponConfig.mNumBulletsPerShot;
 		const float weaponSpread = mWeaponConfig.mWeaponSpread;

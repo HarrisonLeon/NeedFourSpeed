@@ -35,12 +35,12 @@ void AWeapon::Tick(float DeltaTime)
 }
 
 /*Fire weapon based on the type*/
-void AWeapon::Fire()
+void AWeapon::Fire(FVector AimDirection)
 {
 	//Play fire sound
 	mCanFire = true;
 	mNumShots--;
-	mAimDir = GetInstigatorFireForward();
+	mAimDir = AimDirection;
 	PlayWeaponSound(mFireSound);
 
 	//Subtract ammo from hud if it is a player
@@ -60,13 +60,13 @@ void AWeapon::StopFire()
 	mCanFire = false;
 }
 
-FVector AWeapon::GetInstigatorFireForward()
-{
-	FVector fireForward;
-	fireForward = FVector::CrossProduct(this->GetOwner()->GetActorRightVector(), FVector::UpVector);
-	fireForward.Normalize();
-	return fireForward;
-}
+//FVector AWeapon::GetInstigatorFireForward()
+//{
+//	FVector fireForward;
+//	fireForward = FVector::CrossProduct(this->GetOwner()->GetActorRightVector(), FVector::UpVector);
+//	fireForward.Normalize();
+//	return fireForward;
+//}
 
 /*Fire a projectile*/
 void AWeapon::Fire_Projectile(TSubclassOf<class AActor> BulletClass, const FVector& FireDirection)

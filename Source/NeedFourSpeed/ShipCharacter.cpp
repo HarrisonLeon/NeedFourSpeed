@@ -183,6 +183,9 @@ void AShipCharacter::MoveForward(float Value)
 
 		GetCharacterMovement()->Velocity = ClampedVelocity;
 		PreviousVelocity = GetCharacterMovement()->Velocity;
+
+		FRotator AimDirection = FRotator(0.0f, NewVelocity.Rotation().Yaw, 0.0f);
+		ShipMeshComponent->SetRelativeRotation(AimDirection);
 	}
 }
 
@@ -201,6 +204,9 @@ void AShipCharacter::MoveRight(float Value)
 
 		GetCharacterMovement()->Velocity = ClampedVelocity;
 		PreviousVelocity = GetCharacterMovement()->Velocity;
+
+		FRotator AimDirection = FRotator(0.0f, NewVelocity.Rotation().Yaw, 0.0f);
+		ShipMeshComponent->SetRelativeRotation(AimDirection);
 	}
 }
 
@@ -208,40 +214,23 @@ void AShipCharacter::Aim(float ForwardValue, float RightValue)
 {
 	if (FMath::IsNearlyZero(ForwardValue) && FMath::IsNearlyZero(RightValue))
 	{
-		SetActorRotation(currentRotation);
+		StopFire();
 	}
 	else
 	{
 		FVector AimDirection = FVector(-ForwardValue, RightValue, 0.0f);
-		FRotator AimRotation = FRotator(0.0f, AimDirection.Rotation().Yaw, 0.0f);
-		currentRotation = AimRotation;
-		SetActorRotation(currentRotation);
+		Fire(AimDirection);
+		//FRotator AimRotation = FRotator(0.0f, AimDirection.Rotation().Yaw, 0.0f);
+		//currentRotation = AimRotation;
+		//SetActorRotation(currentRotation);
 	}
 }
 
-void AShipCharacter::AimForward(float Value)
-{
-	FVector LookDirection = FVector(Value, 0.0f, 0.0f);
-	FRotator LookRotation = FRotator(0.0f, LookDirection.Rotation().Yaw, 0.0f);
-
-	ShipMeshComponent->AddRelativeRotation(LookRotation);
-}
-
-void AShipCharacter::AimRight(float Value)
-{
-	FVector LookDirection = FVector(0.0f, Value, 0.0f);
-	FRotator LookRotation = FRotator(0.0f, LookDirection.Rotation().Yaw, 0.0f);
-
-	ShipMeshComponent->GetRelativeTransform().GetRotation();
-
-	ShipMeshComponent->AddRelativeRotation(LookRotation);
-}
-
-void AShipCharacter::Fire()
+void AShipCharacter::Fire(FVector AimDirection)
 {
 	if (mCurrentWeapon)
 	{
-		mCurrentWeapon->Fire();
+		mCurrentWeapon->Fire(AimDirection);
 	}
 }
 

@@ -19,6 +19,7 @@ public:
 	void ScoreGoalNode(class AShipCharacter* player);
 	void ScoreKill(class AShipCharacter* player);
 	void Respawn();
+	void CheckEndGame();
 	UPROPERTY(EditAnywhere)
 		float mMaxHealth = 100;
 		

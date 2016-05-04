@@ -84,6 +84,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void CreatePopUpText(const FString& s, FColor color);
 
+	UFUNCTION(BlueprintImplementableEvent)
+		void ShowEndGameMenu(int32 playerID);
+
 
 
 	static const FName MoveForwardBinding;

@@ -21,21 +21,8 @@ void ANeedFourSpeedGameMode::BeginPlay()
 		AShipPlayerController* controller = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), i, true));
 		players.Add(controller);
 	}
-	/*controller1 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 1, true));
-	controller2 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 2, true));
-	controller3 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 3, true));
-	controller4 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 4, true));*/
 
-	players.Add(GetWorld()->GetFirstPlayerController());
-	//players.Add(controller1);
-	//players.Add(controller2);
-	//players.Add(controller3);
-	//players.Add(controller4);
-
-	FActorSpawnParameters spawnParams;
-	spawnParams.Owner = this;
-	spawnParams.Instigator = Instigator;
-	mCustomCamera = GetWorld()->SpawnActor<ACustomCamera>(mCustomCameraClass, spawnParams);
+	//players.Add(GetWorld()->GetFirstPlayerController());
 
 	this->bDelayedStart = false;
 }
@@ -47,6 +34,12 @@ void ANeedFourSpeedGameMode::AddPlayerIndexToSpawnQueue(int32& index)
 
 void ANeedFourSpeedGameMode::HandleMatchHasStarted() {
 	Super::HandleMatchHasStarted();
+
+	FActorSpawnParameters spawnParams;
+	spawnParams.Owner = this;
+	spawnParams.Instigator = Instigator;
+	mCustomCamera = GetWorld()->SpawnActor<ACustomCamera>(mCustomCameraClass, spawnParams);
+
 	TArray<AActor*> allActor;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AShipCharacter::StaticClass(), allActor);
 	int32 index = 0;

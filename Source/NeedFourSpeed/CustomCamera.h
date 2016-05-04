@@ -24,6 +24,7 @@ public:
 	void StartTrackingPlayer(APlayerController* playerController);
 	void StopTracking(APlayerController* playerController);
 	void StartTracking(APlayerController* playerController);
+	void ClearAllPlayers();
 
 private:
 	//Target just for testing

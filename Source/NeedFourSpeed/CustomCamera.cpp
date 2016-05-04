@@ -70,10 +70,12 @@ void ACustomCamera::Tick(float deltaTime)
 	//Find average location between players
 	for (int i = 0; i < mPlayerArr.Num(); i++)
 	{
-		AShipCharacter* currPlayer = Cast<AShipCharacter>(mPlayerArr[i]->GetPawn());
-		if (currPlayer != NULL)
-		{
-			posSums += currPlayer->GetActorLocation();
+		if (mPlayerArr[i]) {
+			AShipCharacter* currPlayer = Cast<AShipCharacter>(mPlayerArr[i]->GetPawn());
+			if (currPlayer != NULL)
+			{
+				posSums += currPlayer->GetActorLocation();
+			}
 		}
 	}
 	FVector averageLoc = posSums / float(mPlayerArr.Num());
@@ -118,21 +120,25 @@ float ACustomCamera::FindLargestDistBetPlayers()
 	float largestDist = 0;
 	for (int i = 0; i < mPlayerArr.Num(); i++)
 	{
-		AShipCharacter* currPlayer = Cast<AShipCharacter>(mPlayerArr[i]->GetPawn());
-		for (int j = 0; j < mPlayerArr.Num(); j++)
-		{
-			AShipCharacter* otherPlayer = Cast<AShipCharacter>(mPlayerArr[j]->GetPawn());
-			if (currPlayer&&otherPlayer)
+		if (mPlayerArr[i]) {
+			AShipCharacter* currPlayer = Cast<AShipCharacter>(mPlayerArr[i]->GetPawn());
+			for (int j = 0; j < mPlayerArr.Num(); j++)
 			{
-				//Check next player if we are trying to check distance with ourself
-				if (currPlayer == otherPlayer)
-				{
-					continue;
-				}
-				float distanceSquared = (currPlayer->GetActorLocation() - otherPlayer->GetActorLocation()).SizeSquared();
-				if (distanceSquared > largestDist)
-				{
-					largestDist = distanceSquared;
+				if (mPlayerArr[j]) {
+					AShipCharacter* otherPlayer = Cast<AShipCharacter>(mPlayerArr[j]->GetPawn());
+					if (currPlayer&&otherPlayer)
+					{
+						//Check next player if we are trying to check distance with ourself
+						if (currPlayer == otherPlayer)
+						{
+							continue;
+						}
+						float distanceSquared = (currPlayer->GetActorLocation() - otherPlayer->GetActorLocation()).SizeSquared();
+						if (distanceSquared > largestDist)
+						{
+							largestDist = distanceSquared;
+						}
+					}
 				}
 			}
 		}
@@ -146,5 +152,9 @@ void ACustomCamera::StopTracking(APlayerController* playerController) {
 
 void ACustomCamera::StartTracking(APlayerController* playerController) {
 	mPlayerArr.Add(playerController);
+}
+
+void ACustomCamera::ClearAllPlayers() {
+	mPlayerArr.Empty();
 }
 

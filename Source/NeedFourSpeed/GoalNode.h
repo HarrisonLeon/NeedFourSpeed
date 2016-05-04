@@ -19,8 +19,13 @@ public:
 	AGoalNode();
 	void SetSpawnManager(ASpawnManager* sm);
 	void PickUp(AShipCharacter* player) override;
+
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+		class USoundCue* mCollectSound;
+
 private:
 	ASpawnManager* sm;
+	UAudioComponent* PlayCollectSound(USoundCue* sound);
 	
 	
 	

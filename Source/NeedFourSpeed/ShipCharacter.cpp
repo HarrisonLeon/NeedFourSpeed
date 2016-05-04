@@ -113,12 +113,27 @@ void AShipCharacter::Tick(float DeltaTime)
 	}
 }
 
+void AShipCharacter::ShowDamagePopUp(int32 damageTaken)
+{
+	FString damageString = "-";
+	damageString.Append(FString::FromInt(damageTaken));
+	CreatePopUpText(damageString, FColor::Red);
+}
+
+void AShipCharacter::ShowPointsPopUp(int32 pointsAdded)
+{
+	FString pointsPopUpText = "+";
+	pointsPopUpText.Append(FString::FromInt(pointsAdded));
+	CreatePopUpText(pointsPopUpText, FColor::Yellow);
+}
+
 float AShipCharacter::ReceiveDamage(float Damage, AController* EventInstigator, AActor*DamageCauser)
 {
 	AShipPlayerController* controller=Cast<AShipPlayerController>(GetController());
 	if (controller)
 	{
-		//this->PlayerState->
+		//show popuptext damage
+		ShowDamagePopUp(Damage);
 		float damageReceived = Cast<AShipPlayerState>(controller->PlayerState)->ReceiveDamage(Damage, EventInstigator, DamageCauser);
 	}
 	return -1.0f;

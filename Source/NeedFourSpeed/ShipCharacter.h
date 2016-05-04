@@ -35,6 +35,10 @@ public:
 
 	float ReceiveDamage(float Damage, AController* EventInstigator, AActor*DamageCauser);
 
+	void ShowDamagePopUp(int32 damageTaken);
+
+	void ShowPointsPopUp(int32 pointsAdded);
+
 	UFUNCTION()
 		void MoveForward(float Value);
 
@@ -73,6 +77,12 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void SetPlayerAmmo(int32 ammo);
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void CreatePlayerHUD();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void CreatePopUpText(const FString& s, FColor color);
 
 
 

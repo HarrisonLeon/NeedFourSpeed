@@ -14,6 +14,8 @@ AShipPlayerState::AShipPlayerState() {
 void AShipPlayerState::ScoreGoalNode(AShipCharacter* player) {
 	mScore += mGoalScore;
 	if (player) {
+		//Show pop up with points added
+		player->ShowPointsPopUp(mGoalScore);
 		player->SetPlayerScore(mScore);
 	}
 	if (mScore >= mMaxScore) {
@@ -24,6 +26,8 @@ void AShipPlayerState::ScoreGoalNode(AShipCharacter* player) {
 void AShipPlayerState::ScoreKill(AShipCharacter* player) {
 	mScore += mKillScore;
 	if (player) {
+		//Show pop up with points added
+		player->ShowPointsPopUp(mKillScore);
 		player->SetPlayerScore(mScore);
 	}
 	if (mScore >= mMaxScore) {

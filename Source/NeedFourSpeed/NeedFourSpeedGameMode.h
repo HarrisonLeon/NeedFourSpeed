@@ -25,10 +25,13 @@ public:
 
 	//this function is used for spawning player with correct index 
 	void AddPlayerIndexToSpawnQueue(int32& index);
+	void SetPlayerNum(int32 num);
 	TQueue<int32>& GetPlayerIndexSpawnQueue() { return mSpawnQueue; }
 
 	//UPROPERTY(EditAnywhere, Category = Location)
 	//TArray<APlayerStart*> playerStarts;
+	UPROPERTY(EditAnywhere)
+		int32 mNumPlayer = 4;
 private:
 	//class AShipPlayerController* controller0;
 	class AShipPlayerController* controller1;

@@ -15,16 +15,22 @@ void ANeedFourSpeedGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	controller1 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 1, true));
+	players.Add(GetWorld()->GetFirstPlayerController());
+
+	for (int i = 1; i <= mNumPlayer; i++) {
+		AShipPlayerController* controller = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), i, true));
+		players.Add(controller);
+	}
+	/*controller1 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 1, true));
 	controller2 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 2, true));
 	controller3 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 3, true));
-	controller4 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 4, true));
+	controller4 = Cast<AShipPlayerController>(UGameplayStatics::CreatePlayer(GetWorld(), 4, true));*/
 
 	players.Add(GetWorld()->GetFirstPlayerController());
-	players.Add(controller1);
-	players.Add(controller2);
-	players.Add(controller3);
-	players.Add(controller4);
+	//players.Add(controller1);
+	//players.Add(controller2);
+	//players.Add(controller3);
+	//players.Add(controller4);
 
 	FActorSpawnParameters spawnParams;
 	spawnParams.Owner = this;
@@ -67,4 +73,8 @@ TArray<class APlayerController*> ANeedFourSpeedGameMode::getAllPlayerControllers
 
 ACustomCamera* ANeedFourSpeedGameMode::GetCustomCamera() {
 	return mCustomCamera;
+}
+
+void ANeedFourSpeedGameMode::SetPlayerNum(int32 num) {
+	mNumPlayer = num;
 }

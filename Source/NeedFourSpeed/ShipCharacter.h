@@ -109,6 +109,9 @@ public:
 	void SetPlayerIndex(int32 index);
 	int32 GetPlayerIndex() { return mPlayerIndex; }
 
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = Effects) UParticleSystem* ExplosionFX;
+
 private:
 
 	bool isBoosting = false;

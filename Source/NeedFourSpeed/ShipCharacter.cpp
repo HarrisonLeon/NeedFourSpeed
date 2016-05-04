@@ -141,6 +141,9 @@ float AShipCharacter::ReceiveDamage(float Damage, AController* EventInstigator, 
 
 void AShipCharacter::Die()
 {
+	FVector DeathLoc = GetActorLocation();
+	UGameplayStatics::SpawnEmitterAtLocation(this, ExplosionFX, DeathLoc);
+
 	//Delete current weapon
 	if (mCurrentWeapon)
 	{

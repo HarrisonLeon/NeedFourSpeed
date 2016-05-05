@@ -19,6 +19,10 @@ const FName AShipCharacter::StopFireBinding("StopFire");
 
 AShipCharacter::AShipCharacter()
 {
+	canBlink = true;
+
+	BlinkCooldown = 0.75f;
+
 	MaximumVelocity = 4000.0f;
 	PreviousVelocity = FVector();
 	currentRotation = FRotator(0.0f, 0.0f, 0.0f);
@@ -227,7 +231,7 @@ void AShipCharacter::MoveForward(float Value)
 		float DeltaTime = GetWorld()->GetDeltaSeconds();
 
 		FVector NewVelocity = (PreviousVelocity + (DeltaTime * Value * 100000.0f * Direction));
-		FVector ClampedVelocity = NewVelocity.GetClampedToMaxSize(MaximumVelocity) * (isBoosting ? 3.5f : 1.0f);
+		FVector ClampedVelocity = NewVelocity.GetClampedToMaxSize(MaximumVelocity);
 
 		GetCharacterMovement()->Velocity = ClampedVelocity;
 		PreviousVelocity = GetCharacterMovement()->Velocity;
@@ -248,7 +252,7 @@ void AShipCharacter::MoveRight(float Value)
 		float DeltaTime = GetWorld()->GetDeltaSeconds();
 		
 		FVector NewVelocity = (PreviousVelocity + (DeltaTime * Value * 100000.0f * Direction));
-		FVector ClampedVelocity = NewVelocity.GetClampedToMaxSize(MaximumVelocity) * (isBoosting ? 3.5f : 1.0f);
+		FVector ClampedVelocity = NewVelocity.GetClampedToMaxSize(MaximumVelocity);
 
 		GetCharacterMovement()->Velocity = ClampedVelocity;
 		PreviousVelocity = GetCharacterMovement()->Velocity;
@@ -287,24 +291,35 @@ void AShipCharacter::StopFire()
 
 void AShipCharacter::Blink()
 {
-	// get actor forward vector
-	FVector Forward = ShipMeshComponent->GetForwardVector();
+	if (canBlink)
+	{
+		// get actor forward vector
+		FVector Forward = ShipMeshComponent->GetForwardVector();
 
-	FVector StartLoc = GetActorLocation();
-	FVector TeleportDest =  GetActorLocation() + (200.0f * Forward);
+		FVector StartLoc = GetActorLocation();
+		FVector TeleportDest = GetActorLocation() + (200.0f * Forward);
 
-	if (TeleportDest.X > 1942.0f) TeleportDest.X = 1942.0f;
-	if (TeleportDest.X < -1852.0f) TeleportDest.X = -1852.0f;
-	if (TeleportDest.Y > 2666.0f) TeleportDest.Y = 2666.0f;
-	if (TeleportDest.Y < -1852.0f) TeleportDest.Y = -1852.0f;
+		if (TeleportDest.X > 1942.0f) TeleportDest.X = 1942.0f;
+		if (TeleportDest.X < -1852.0f) TeleportDest.X = -1852.0f;
+		if (TeleportDest.Y > 2666.0f) TeleportDest.Y = 2666.0f;
+		if (TeleportDest.Y < -1852.0f) TeleportDest.Y = -1852.0f;
 
-	UGameplayStatics::SpawnEmitterAtLocation(this, BlinkFX, StartLoc);
-	SetActorLocation(TeleportDest);
+		UGameplayStatics::SpawnEmitterAtLocation(this, BlinkFX, StartLoc);
+		SetActorLocation(TeleportDest);
+		PlaySound(mBlinkSound);
 
-	PlaySound(mBlinkSound);
+		canBlink = false;
+
+		UWorld* World = GetWorld();
+		if (World)
+		{
+			//Set timer
+			World->GetTimerManager().SetTimer(BlinkTimerHandle, this, &AShipCharacter::CanBlinkAgain, BlinkCooldown);
+		}
+	}	
 }
 
-void AShipCharacter::DashStop()
+void AShipCharacter::CanBlinkAgain()
 {
-	isBoosting = false;
+	canBlink = true;
 }

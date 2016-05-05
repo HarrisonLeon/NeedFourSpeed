@@ -58,7 +58,7 @@ public:
 		void Blink();
 
 	UFUNCTION()
-		void DashStop();
+		void CanBlinkAgain();
 
 	UFUNCTION()
 		void Die();
@@ -126,14 +126,16 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = Effects) UParticleSystem* BlinkFX;
 
+	UPROPERTY(EditDefaultsOnly, Category = Config) float BlinkCooldown;
+
 private:
 
-	bool isBoosting = false;
+	bool canBlink = false;
 
 	FVector PreviousVelocity;
 	FRotator currentRotation;
 
-	FTimerHandle BoostTimerHandle;
+	FTimerHandle BlinkTimerHandle;
 
 	//This dynamic material is used to set the material of the character 
 	UMaterialInstanceDynamic* DynamicMaterial;

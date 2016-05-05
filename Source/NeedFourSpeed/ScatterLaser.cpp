@@ -10,7 +10,7 @@ AScatterLaser::AScatterLaser()
 	mWeaponConfig.mNumBulletsPerShot = 4;
 	mWeaponConfig.mWeaponRange = 1500.0f;
 	mWeaponConfig.mTimeBetweenShots = 2.0f;
-	mWeaponConfig.mMaxAmmo = 40;
+	mWeaponConfig.mMaxAmmo = 15;
 	mWeaponConfig.mIsAutomatic = false;
 	mWeaponConfig.mUnlimitedAmmo = false;
 	mNumShots = mWeaponConfig.mMaxAmmo;

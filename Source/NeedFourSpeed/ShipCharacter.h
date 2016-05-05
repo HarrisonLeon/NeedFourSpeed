@@ -84,6 +84,13 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void CreatePopUpText(const FString& s, FColor color);
 
+	UFUNCTION(BlueprintImplementableEvent)
+		void ShowEndGameMenu(int32 playerID);
+
+	UAudioComponent* PlaySound(USoundCue* sound);
+
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+	class USoundCue* mDestroySound;
 
 
 	static const FName MoveForwardBinding;
@@ -111,6 +118,8 @@ public:
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = Effects) UParticleSystem* ExplosionFX;
+
+	UPROPERTY(EditDefaultsOnly, Category = Effects) UParticleSystem* SpawnFX;
 
 private:
 

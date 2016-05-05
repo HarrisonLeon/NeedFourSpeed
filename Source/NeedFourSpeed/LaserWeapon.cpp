@@ -9,7 +9,7 @@ ALaserWeapon::ALaserWeapon()
 	mWeaponConfig.mNumBulletsPerShot = 1;
 	mWeaponConfig.mWeaponRange = 4000.0f;
 	mWeaponConfig.mTimeBetweenShots = 1.0f;
-	mWeaponConfig.mMaxAmmo = 38;
+	mWeaponConfig.mMaxAmmo = 20;
 	mWeaponConfig.mIsAutomatic = false;
 	mWeaponConfig.mUnlimitedAmmo = false;
 	mNumShots = mWeaponConfig.mMaxAmmo;

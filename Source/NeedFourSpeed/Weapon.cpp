@@ -43,7 +43,7 @@ void AWeapon::Fire(FVector AimDirection)
 		{
 			mNumShots--;
 			mAimDir = AimDirection;
-			
+
 
 			//Subtract ammo from hud if it is a player
 			//Draw ammo to HUD
@@ -159,4 +159,3 @@ UAudioComponent* AWeapon::PlayWeaponSound(USoundCue* sound)
 	}
 	return AC;
 }
-

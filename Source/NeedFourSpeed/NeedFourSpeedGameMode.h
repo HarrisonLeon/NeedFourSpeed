@@ -31,13 +31,13 @@ public:
 	//UPROPERTY(EditAnywhere, Category = Location)
 	//TArray<APlayerStart*> playerStarts;
 	UPROPERTY(EditAnywhere)
-		int32 mNumPlayer = 4;
+		int32 mNumPlayer = 3;
 private:
 	//class AShipPlayerController* controller0;
-	class AShipPlayerController* controller1;
+	/*class AShipPlayerController* controller1;
 	AShipPlayerController* controller2;
 	AShipPlayerController* controller3;
-	AShipPlayerController* controller4;
+	AShipPlayerController* controller4;*/
 	TArray<class APlayerController*> players;
 	class ACustomCamera* mCustomCamera;
 	TQueue<int32> mSpawnQueue;

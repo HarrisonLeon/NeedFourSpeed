@@ -30,6 +30,9 @@ public:
 
 	virtual void PickUp(AShipCharacter* player);
 
+	UPROPERTY(EditDefaultsOnly, Category = Collision)
+		USphereComponent* mSphereComponent;
+
 private:
 
 	UPROPERTY(EditDefaultsOnly, Category = Effects)
@@ -40,9 +43,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = Config)
 		float mRotationSpeed;
-
-	UPROPERTY(EditDefaultsOnly, Category = Collision)
-		USphereComponent* mSphereComponent;
 
 	UPROPERTY(EditDefaultsOnly, Category = PickUp)
 		USkeletalMeshComponent* mPickUpMesh;

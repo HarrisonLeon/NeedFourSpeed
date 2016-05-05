@@ -18,9 +18,7 @@ void AShipPlayerState::ScoreGoalNode(AShipCharacter* player) {
 		player->ShowPointsPopUp(mGoalScore);
 		player->SetPlayerScore(mScore);
 	}
-	if (mScore >= mMaxScore) {
-		
-	}
+	CheckEndGame();
 }
 
 void AShipPlayerState::ScoreKill(AShipCharacter* player) {
@@ -29,10 +27,9 @@ void AShipPlayerState::ScoreKill(AShipCharacter* player) {
 		//Show pop up with points added
 		player->ShowPointsPopUp(mKillScore);
 		player->SetPlayerScore(mScore);
+		GEngine->AddOnScreenDebugMessage(1, 10.0f, FColor::Red, "Score before death "+FString::FromInt(mScore));
 	}
-	if (mScore >= mMaxScore) {
-
-	}
+	CheckEndGame();
 }
 
 float AShipPlayerState::ReceiveDamage(float Damage, AController* EventInstigator, AActor*DamageCauser) {
@@ -81,4 +78,24 @@ void AShipPlayerState::Respawn() {
 			mHealth = mMaxHealth;
 		}
 	}
+}
+
+void AShipPlayerState::CheckEndGame() {
+	if (mScore >= mMaxScore) {
+		UGameplayStatics::SetGamePaused(GetWorld(), true);
+		AShipPlayerController* OwnerController = Cast<AShipPlayerController>(GetOwner());
+		if (OwnerController) {
+			AShipCharacter* player = Cast<AShipCharacter>(OwnerController->GetPawn());
+			if (player) {
+				Cast<ANeedFourSpeedGameMode>(GetWorld()->GetAuthGameMode())->GetCustomCamera()->ClearAllPlayers();
+				player->ShowEndGameMenu(player->mPlayerIndex);
+			}
+		}
+	}
+}
+
+
+int32 AShipPlayerState::GetScore()
+{
+	return mScore;
 }

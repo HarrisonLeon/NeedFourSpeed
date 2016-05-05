@@ -14,7 +14,6 @@ ASpawnManager::ASpawnManager()
 	PrimaryActorTick.bCanEverTick = true;
 	prevIndex = -1;
 	prevWeaponIndex = -1;
-
 }
 
 // Called when the game starts or when spawned
@@ -63,16 +62,24 @@ void ASpawnManager::SpawnWeapon() {
 	int Num = weaponLoc.Num();
 	if (Num != 0) {
 		int Index = FMath::RandRange(0, Num - 1);
+		int limit = 0;
+		while (existingWeapon.Contains(Index) && limit <= existingWeapon.Num()) {
+			int Index = FMath::RandRange(0, Num - 1);
+			limit++;
+		}
+		if (limit > existingWeapon.Num()) {
+			return;
+		}
+		existingWeapon.Add(Index);
 		if (weaponLoc[Index]) {
 			FVector pos = weaponLoc[Index]->GetActorLocation();
 			FRotator rot = weaponLoc[Index]->GetActorRotation();
 
 			int weaponIndex = FMath::RandRange(0, weaponClass.Num() - 1);
 			// Spawn an ACharacter of subclass CharacterClass, at specified position and rotation 
-			AWeaponPickUp* Char = GetWorld()->SpawnActor<AWeaponPickUp>(weaponClass[weaponIndex], pos, rot);
-			if (Char) {
-				// Spawn the AI controller for the character 
-				//Char->SpawnDefaultController();
+			AWeaponPickUp* weapon = GetWorld()->SpawnActor<AWeaponPickUp>(weaponClass[weaponIndex], pos, rot);
+			if (weapon) {
+				weapon->SetRelativePosition(Index);
 			}
 		}
 	}
@@ -95,5 +102,9 @@ void ASpawnManager::SpawnAIEnemies() {
 			}
 		}
 	}
+}
+
+void ASpawnManager::RemoveWeapon(int32 pos) {
+	existingWeapon.Remove(pos);
 }
 

@@ -51,8 +51,26 @@ void AShipCharacter::BeginPlay()
 	SetPlayerMaterial();
 	this->SetPlayerHealth(1.0f);
 	this->SetPlayerVisibility(mPlayerIndex);
-	this->SetPlayerScore(0);
+	AShipPlayerState* playerState = Cast<AShipPlayerState>(this->PlayerState);
+	if (playerState)
+	{
+		AShipPlayerController* controller = Cast<AShipPlayerController>(GetOwner());
+		if (controller)
+		{
+			AShipPlayerState* playerState = Cast<AShipPlayerState>((controller->PlayerState));
+			if (playerState)
+			{
+				int32 score = playerState->GetScore();
+				this->SetPlayerScore(score);
+			}
+		}
+	}
 	this->SetPlayerAmmo(0);
+	FVector spawnLoc = GetActorLocation();
+	if (SpawnFX)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(this, SpawnFX, spawnLoc);
+	}
 }
 
 void AShipCharacter::SetPlayerIndex(int32 index)
@@ -141,6 +159,7 @@ float AShipCharacter::ReceiveDamage(float Damage, AController* EventInstigator, 
 
 void AShipCharacter::Die()
 {
+	PlaySound(mDestroySound);
 	FVector DeathLoc = GetActorLocation();
 	UGameplayStatics::SpawnEmitterAtLocation(this, ExplosionFX, DeathLoc);
 
@@ -157,6 +176,17 @@ void AShipCharacter::Die()
 	Cast<ANeedFourSpeedGameMode>(this->GetWorld()->GetAuthGameMode())->AddPlayerIndexToSpawnQueue(mPlayerIndex);
 	//Delete player
 	Destroy();
+}
+
+UAudioComponent* AShipCharacter::PlaySound(USoundCue* sound)
+{
+	UAudioComponent* AC = NULL;
+	if (sound)
+	{
+		AC = UGameplayStatics::SpawnSoundAttached(sound, RootComponent);
+		AC->bStopWhenOwnerDestroyed = false;
+	}
+	return AC;
 }
 
 void AShipCharacter::EquipWeapon(TSubclassOf<class AWeapon> WeaponClass)

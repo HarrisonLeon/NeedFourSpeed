@@ -22,9 +22,22 @@ void AGoalNode::PickUp(AShipCharacter* player) {
 		AShipPlayerState* playerState = Cast<AShipPlayerState>(controller->PlayerState);
 		if (playerState) {
 			playerState->ScoreGoalNode(player);
+			PlayCollectSound(mCollectSound);
 		}
 	}
 	sm->SpawnGoalNode();
+}
+
+
+UAudioComponent* AGoalNode::PlayCollectSound(USoundCue* sound)
+{
+	UAudioComponent* AC = NULL;
+	if (sound)
+	{
+		AC = UGameplayStatics::SpawnSoundAttached(sound, RootComponent);
+		AC->bStopWhenOwnerDestroyed = false;
+	}
+	return AC;
 }
 
 

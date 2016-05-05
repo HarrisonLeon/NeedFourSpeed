@@ -27,6 +27,7 @@ void AShipPlayerState::ScoreKill(AShipCharacter* player) {
 		//Show pop up with points added
 		player->ShowPointsPopUp(mKillScore);
 		player->SetPlayerScore(mScore);
+		GEngine->AddOnScreenDebugMessage(1, 10.0f, FColor::Red, "Score before death "+FString::FromInt(mScore));
 	}
 	CheckEndGame();
 }
@@ -93,3 +94,8 @@ void AShipPlayerState::CheckEndGame() {
 	}
 }
 
+
+int32 AShipPlayerState::GetScore()
+{
+	return mScore;
+}

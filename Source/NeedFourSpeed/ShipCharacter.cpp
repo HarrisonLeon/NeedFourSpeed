@@ -51,7 +51,20 @@ void AShipCharacter::BeginPlay()
 	SetPlayerMaterial();
 	this->SetPlayerHealth(1.0f);
 	this->SetPlayerVisibility(mPlayerIndex);
-	this->SetPlayerScore(0);
+	AShipPlayerState* playerState=Cast<AShipPlayerState>(this->PlayerState);
+	if (playerState)
+	{
+		AShipPlayerController* controller=Cast<AShipPlayerController>(GetOwner());
+		if (controller)
+		{
+			AShipPlayerState* playerState = Cast<AShipPlayerState>((controller->PlayerState));
+			if (playerState)
+			{
+				int32 score = playerState->GetScore();
+				this->SetPlayerScore(score);
+			}
+		}
+	}
 	this->SetPlayerAmmo(0);
 }
 

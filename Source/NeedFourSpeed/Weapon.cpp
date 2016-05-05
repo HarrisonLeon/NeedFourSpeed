@@ -37,8 +37,8 @@ void AWeapon::Tick(float DeltaTime)
 /*Fire weapon based on the type*/
 void AWeapon::Fire(FVector AimDirection)
 {
-	FString boolString = mCanFire ? "I CAN SHOOT" : "NO WAY";
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, boolString);
+	//FString boolString = mCanFire ? "I CAN SHOOT" : "NO WAY";
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, boolString);
 
 	if (mCanFire)
 	{

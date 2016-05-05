@@ -30,6 +30,7 @@ public:
 
 	void DoDamageToPlayer() override;
 
+
 private:
 	void EquipWeapon(TSubclassOf<class AWeapon> WeaponClass);
 

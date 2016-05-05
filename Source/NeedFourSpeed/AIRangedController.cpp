@@ -8,8 +8,8 @@
 AAIRangedController::AAIRangedController()
 {
 	mAnimState = Start;
-	mAttackRange = 1000.0f;
-	mVisionRange = 1800.0f;
+	mAttackRange = 700.0f;
+	mVisionRange = 5000.0f;
 }
 
 void AAIRangedController::BeginPlay()

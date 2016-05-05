@@ -32,9 +32,9 @@ protected:
 	AnimState mAnimState;
 	
 	UPROPERTY(EditAnywhere)
-		float mAttackRange = 1000.0f;
+		float mAttackRange = 500.0f;
 
 	UPROPERTY(EditAnywhere)
-		float mVisionRange = 1600.0f;
+		float mVisionRange = 1400.0f;
 	
 };

@@ -22,7 +22,7 @@ public:
 	void MoveRight(float Value);
 	void AimForward(float Value);
 	void AimRight(float Value);
-	void Dash();
+	void Blink();
 	void Aim();
 
 	void Fire();

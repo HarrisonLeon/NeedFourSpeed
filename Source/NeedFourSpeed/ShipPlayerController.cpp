@@ -34,7 +34,7 @@ void AShipPlayerController::SetupInputComponent()
 		InputComponent->BindAxis("MoveRight", this, &AShipPlayerController::MoveRight);
 		InputComponent->BindAxis("AimForward");
 		InputComponent->BindAxis("AimRight");
-		InputComponent->BindAction("Dash", IE_Pressed, this, &AShipPlayerController::Dash);
+		InputComponent->BindAction("Dash", IE_Pressed, this, &AShipPlayerController::Blink);
 	}
 }
 
@@ -66,10 +66,10 @@ void AShipPlayerController::Aim()
 void AShipPlayerController::StopFire()
 {}
 
-void AShipPlayerController::Dash()
+void AShipPlayerController::Blink()
 {
 	if (Cast<AShipCharacter>(GetPawn())) {
-		Cast<AShipCharacter>(GetPawn())->Dash();
+		Cast<AShipCharacter>(GetPawn())->Blink();
 	}
 }
 

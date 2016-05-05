@@ -55,7 +55,7 @@ public:
 		void StopFire();
 
 	UFUNCTION()
-		void Dash();
+		void Blink();
 
 	UFUNCTION()
 		void DashStop();
@@ -90,7 +90,10 @@ public:
 	UAudioComponent* PlaySound(USoundCue* sound);
 
 	UPROPERTY(EditDefaultsOnly, Category = Config)
-	class USoundCue* mDestroySound;
+		class USoundCue* mDestroySound;
+
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+		class USoundCue* mBlinkSound;
 
 
 	static const FName MoveForwardBinding;
@@ -120,6 +123,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = Effects) UParticleSystem* ExplosionFX;
 
 	UPROPERTY(EditDefaultsOnly, Category = Effects) UParticleSystem* SpawnFX;
+
+	UPROPERTY(EditDefaultsOnly, Category = Effects) UParticleSystem* BlinkFX;
 
 private:
 

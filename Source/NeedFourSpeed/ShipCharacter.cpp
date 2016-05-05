@@ -285,11 +285,12 @@ void AShipCharacter::StopFire()
 	}
 }
 
-void AShipCharacter::Dash()
+void AShipCharacter::Blink()
 {
 	// get actor forward vector
 	FVector Forward = ShipMeshComponent->GetForwardVector();
 
+	FVector StartLoc = GetActorLocation();
 	FVector TeleportDest =  GetActorLocation() + (200.0f * Forward);
 
 	if (TeleportDest.X > 1942.0f) TeleportDest.X = 1942.0f;
@@ -297,7 +298,10 @@ void AShipCharacter::Dash()
 	if (TeleportDest.Y > 2666.0f) TeleportDest.Y = 2666.0f;
 	if (TeleportDest.Y < -1852.0f) TeleportDest.Y = -1852.0f;
 
+	UGameplayStatics::SpawnEmitterAtLocation(this, BlinkFX, StartLoc);
 	SetActorLocation(TeleportDest);
+
+	PlaySound(mBlinkSound);
 }
 
 void AShipCharacter::DashStop()

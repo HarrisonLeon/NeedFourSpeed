@@ -225,6 +225,8 @@ void AShipCharacter::MoveRight(float Value)
 
 		FRotator AimDirection = FRotator(0.0f, NewVelocity.Rotation().Yaw, 0.0f);
 		ShipMeshComponent->SetRelativeRotation(AimDirection);
+
+
 	}
 }
 
@@ -255,8 +257,17 @@ void AShipCharacter::StopFire()
 
 void AShipCharacter::Dash()
 {
-	isBoosting = true;
-	GetWorld()->GetTimerManager().SetTimer(BoostTimerHandle, this, &AShipCharacter::DashStop, 0.2f, false);
+	// get actor forward vector
+	FVector Forward = ShipMeshComponent->GetForwardVector();
+
+	FVector TeleportDest =  GetActorLocation() + (200.0f * Forward);
+
+	if (TeleportDest.X > 1942.0f) TeleportDest.X = 1942.0f;
+	if (TeleportDest.X < -1852.0f) TeleportDest.X = -1852.0f;
+	if (TeleportDest.Y > 2666.0f) TeleportDest.Y = 2666.0f;
+	if (TeleportDest.Y < -1852.0f) TeleportDest.Y = -1852.0f;
+
+	SetActorLocation(TeleportDest);
 }
 
 void AShipCharacter::DashStop()

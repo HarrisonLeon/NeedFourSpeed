@@ -11,7 +11,7 @@ ARayWeapon::ARayWeapon()
 	mWeaponConfig.mNumBulletsPerShot = 1;
 	mWeaponConfig.mWeaponRange = 10000.0f;
 	mWeaponConfig.mTimeBetweenShots = 6.0f;
-	mWeaponConfig.mMaxAmmo = 3;
+	mWeaponConfig.mMaxAmmo = 10;
 	mWeaponConfig.mIsAutomatic = false;
 	mWeaponConfig.mUnlimitedAmmo = false;
 	mNumShots = mWeaponConfig.mMaxAmmo;

@@ -87,6 +87,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void ShowEndGameMenu(int32 playerID);
 
+	UAudioComponent* PlaySound(USoundCue* sound);
+
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+	class USoundCue* mDestroySound;
 
 
 	static const FName MoveForwardBinding;

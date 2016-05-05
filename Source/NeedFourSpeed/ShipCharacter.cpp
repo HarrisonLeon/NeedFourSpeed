@@ -154,6 +154,7 @@ float AShipCharacter::ReceiveDamage(float Damage, AController* EventInstigator, 
 
 void AShipCharacter::Die()
 {
+	PlaySound(mDestroySound);
 	FVector DeathLoc = GetActorLocation();
 	UGameplayStatics::SpawnEmitterAtLocation(this, ExplosionFX, DeathLoc);
 
@@ -170,6 +171,17 @@ void AShipCharacter::Die()
 	Cast<ANeedFourSpeedGameMode>(this->GetWorld()->GetAuthGameMode())->AddPlayerIndexToSpawnQueue(mPlayerIndex);
 	//Delete player
 	Destroy();
+}
+
+UAudioComponent* AShipCharacter::PlaySound(USoundCue* sound)
+{
+	UAudioComponent* AC = NULL;
+	if (sound)
+	{
+		AC = UGameplayStatics::SpawnSoundAttached(sound, RootComponent);
+		AC->bStopWhenOwnerDestroyed = false;
+	}
+	return AC;
 }
 
 void AShipCharacter::EquipWeapon(TSubclassOf<class AWeapon> WeaponClass)

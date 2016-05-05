@@ -119,6 +119,8 @@ public:
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = Effects) UParticleSystem* ExplosionFX;
 
+	UPROPERTY(EditDefaultsOnly, Category = Effects) UParticleSystem* SpawnFX;
+
 private:
 
 	bool isBoosting = false;

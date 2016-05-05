@@ -51,10 +51,10 @@ void AShipCharacter::BeginPlay()
 	SetPlayerMaterial();
 	this->SetPlayerHealth(1.0f);
 	this->SetPlayerVisibility(mPlayerIndex);
-	AShipPlayerState* playerState=Cast<AShipPlayerState>(this->PlayerState);
+	AShipPlayerState* playerState = Cast<AShipPlayerState>(this->PlayerState);
 	if (playerState)
 	{
-		AShipPlayerController* controller=Cast<AShipPlayerController>(GetOwner());
+		AShipPlayerController* controller = Cast<AShipPlayerController>(GetOwner());
 		if (controller)
 		{
 			AShipPlayerState* playerState = Cast<AShipPlayerState>((controller->PlayerState));
@@ -66,6 +66,11 @@ void AShipCharacter::BeginPlay()
 		}
 	}
 	this->SetPlayerAmmo(0);
+	FVector spawnLoc = GetActorLocation();
+	if (SpawnFX)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(this, SpawnFX, spawnLoc);
+	}
 }
 
 void AShipCharacter::SetPlayerIndex(int32 index)

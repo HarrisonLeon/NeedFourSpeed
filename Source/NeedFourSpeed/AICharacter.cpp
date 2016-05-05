@@ -81,6 +81,17 @@ void AAICharacter::StopAttack()
 
 }
 
+UAudioComponent* AAICharacter::PlaySound(USoundCue* sound)
+{
+	UAudioComponent* AC = NULL;
+	if (sound)
+	{
+		AC = UGameplayStatics::SpawnSoundAttached(sound, RootComponent);
+		AC->bStopWhenOwnerDestroyed = false;
+	}
+	return AC;
+}
+
 void AAICharacter::Die()
 {
 	//Tell controller not to update
@@ -88,5 +99,8 @@ void AAICharacter::Die()
 	{
 		GetController()->UnPossess();
 	}
+	PlaySound(mDestroySound);
+	FVector DeathLoc = GetActorLocation();
+	UGameplayStatics::SpawnEmitterAtLocation(this, ExplosionFX, DeathLoc);
 	Destroy();
 }

@@ -65,12 +65,12 @@ void AShipCharacter::BeginPlay()
 			}
 		}
 	}
-	this->SetPlayerAmmo(0);
 	FVector spawnLoc = GetActorLocation();
 	if (SpawnFX)
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(this, SpawnFX, spawnLoc);
 	}
+	//this->SetPlayerAmmo(0);
 }
 
 void AShipCharacter::SetPlayerIndex(int32 index)

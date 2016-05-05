@@ -76,6 +76,7 @@ void AShipPlayerState::Respawn() {
 			gamemode->RestartPlayer(OwnerController);
 			Cast<ANeedFourSpeedGameMode>(GetWorld()->GetAuthGameMode())->GetCustomCamera()->StartTracking(OwnerController);
 			mHealth = mMaxHealth;
+			OwnerController->Respawn();
 		}
 	}
 }

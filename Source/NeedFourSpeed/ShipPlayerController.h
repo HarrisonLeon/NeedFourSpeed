@@ -20,15 +20,18 @@ public:
 	virtual void BeginPlay() override;
 	void MoveForward(float Value);
 	void MoveRight(float Value);
-	void AimForward(float Value);
-	void AimRight(float Value);
 	void Blink();
 	void Aim();
-
-	void Fire();
 	void StopFire();
 
+	void Respawn();
+	void EndRespawn();
+
 	AShipCharacter* ControlledShip;
+
 private:
+	bool mCanMove;
+
+	FTimerHandle EndRespawnHandle;
 	
 };

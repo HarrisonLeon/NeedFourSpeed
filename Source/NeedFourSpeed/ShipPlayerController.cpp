@@ -7,19 +7,21 @@
 
 AShipPlayerController::AShipPlayerController()
 {
-	//mPlayerIndex = -1;
+	mCanMove = true;
 }
 
 void AShipPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	//ControlledShip = Cast<AShipCharacter>(GetPawn());
 }
 
 void AShipPlayerController::PlayerTick(float DeltaTime)
 {
-	Super::PlayerTick(DeltaTime);
-	Aim();
+	if (mCanMove)
+	{
+		Super::PlayerTick(DeltaTime);
+		Aim();
+	}
 }
 
 void AShipPlayerController::SetupInputComponent()
@@ -71,6 +73,23 @@ void AShipPlayerController::Blink()
 	if (Cast<AShipCharacter>(GetPawn())) {
 		Cast<AShipCharacter>(GetPawn())->Blink();
 	}
+}
+
+void AShipPlayerController::Respawn()
+{
+	mCanMove = false;
+
+	UWorld* World = GetWorld();
+	if (World)
+	{
+		//Set timer
+		World->GetTimerManager().SetTimer(EndRespawnHandle, this, &AShipPlayerController::EndRespawn, 1.0f);
+	}
+}
+
+void AShipPlayerController::EndRespawn()
+{
+	mCanMove = true;
 }
 
 

@@ -37,10 +37,16 @@ public:
 
 	float ReceiveDamage(float Damage, AController* EventInstigator, AActor*DamageCauser);
 
+	UPROPERTY(EditDefaultsOnly, Category = Effects) UParticleSystem* ExplosionFX;
+
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+	class USoundCue* mDestroySound;
+
 	/* The mesh component */
 	UPROPERTY(EditDefaultsOnly, Category=MeshComponent)
 		class UStaticMeshComponent* mAIMeshComponent;
 
+	UAudioComponent* PlaySound(USoundCue* sound);
 	/*UPROPERTY(EditDefaultsOnly, Category=Mesh)
 		class UStaticMesh * mAIMesh;*/
 

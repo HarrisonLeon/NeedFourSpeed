@@ -23,6 +23,7 @@ public:
 	void SpawnGoalNode();
 	void SpawnWeapon();
 	void SpawnAIEnemies();
+	void RemoveWeapon(int32 pos);
 protected:
 	UPROPERTY(EditAnywhere)
 		TArray<class ATargetPoint*> goalNodeArray;
@@ -44,6 +45,7 @@ protected:
 private:
 	int prevIndex;
 	int prevWeaponIndex;
+	TArray<int32> existingWeapon;
 	
 	
 	

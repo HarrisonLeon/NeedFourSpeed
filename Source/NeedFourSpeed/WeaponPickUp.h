@@ -18,8 +18,12 @@ class NEEDFOURSPEED_API AWeaponPickUp : public APickUp
 public:
 
 	void PickUp(AShipCharacter* player) override;
-
+	void SetRelativePosition(int32 pos);
 	UPROPERTY(EditDefaultsOnly, Category = Spawn)
 		TSubclassOf<class AWeapon> mWeaponClass;
+	
+private:
+	TArray<int32>* mExistingWeapon;
+	int32 mPosition;
 
 };

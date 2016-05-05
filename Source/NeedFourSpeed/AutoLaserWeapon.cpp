@@ -10,7 +10,7 @@ AAutoLaserWeapon::AAutoLaserWeapon()
 	mWeaponConfig.mNumBulletsPerShot = 1;
 	mWeaponConfig.mWeaponRange = 4000.0f;
 	mWeaponConfig.mTimeBetweenShots = .1f;
-	mWeaponConfig.mMaxAmmo = 80;
+	mWeaponConfig.mMaxAmmo = 40;
 	mWeaponConfig.mIsAutomatic = true;
 	mWeaponConfig.mUnlimitedAmmo = false;
 	mNumShots = mWeaponConfig.mMaxAmmo;
